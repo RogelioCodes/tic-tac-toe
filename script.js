@@ -1,3 +1,14 @@
+const winCombos = [
+  [0, 1, 2],
+  [0, 3, 6],
+  [3, 4, 5],
+  [6, 7, 8],
+  [1, 4, 7],
+  [2, 4, 6],
+  [2, 5, 8],
+  [0, 4, 8],
+];
+let message = document.getElementById("winnerMessage");
 const Player = (sign) => {
   let _sign = sign;
   const getSign = () => _sign;
@@ -7,86 +18,71 @@ const Player = (sign) => {
 
   return { getSign, setSign };
 };
+
 //NEED TO UNDERSTAND WHAT IS GETTING INITIALIZED!
 const Gameboard = (() => {
-let choiceArray = [];
-let currentPlayer;
-const playerOne = Player();
-const playerTwo = Player();
-playerOne.setSign("x");
-playerTwo.setSign("o");
-currentPlayer = playerOne;
-  //make a function to change turn? 
-  const pushToArray = function(currentPlayer, playerOne, playerTwo){
-   
-    console.log("INSIDE PUSH TO ARRAY ");
-    console.log("playerOne: " + playerOne);
-    console.log("currentPlayer: " + currentPlayer)
-    // console.log("currentPlayer: " + currentPlayer.getSign());
-   
-    if (currentPlayer === playerOne) {
-        console.log("hereeeee")
-      choiceArray.push(playerOne.getSign());
-      changeTurn()
-    //   return currentPlayer
-    }else if (currentPlayer === playerTwo) {
-      console.log("current player is two")
-      choiceArray.push(playerTwo.getSign());
-      console.log("choiceArray: " + choiceArray)
-      currentPlayer = playerOne
-      changeTurn()
-    //   return currentPlayer;
+  let choiceArray = ["", "", "", "", "", "", "", "", ""];
+  let currentPlayer;
+  const playerOne = Player();
+  const playerTwo = Player();
+  playerOne.setSign("x");
+  playerTwo.setSign("o");
+  currentPlayer = playerOne;
+  //make a function to change turn?
+  const pushToArray = function (currentPlayer, playerOne, playerTwo, e) {
+    let index = e;
+    if (currentPlayer === playerOne && choiceArray[index] == "") {
+      choiceArray[index] = playerOne.getSign();
+      changeTurn();
+    } else if (currentPlayer === playerTwo && choiceArray[index] == "") {
+      choiceArray[index] = playerTwo.getSign();
+      changeTurn();
     }
-  console.log("curreeeeeeeent: " + currentPlayer.getSign())
-  }
+  };
   const SQUARES = document.querySelectorAll(".square");
-  console.log("SQUARES: " + SQUARES);
-
+  function checkWin(currentPlayer) {
+    return winCombos.some((combination) => {
+      return combination.every((index) => {
+        return SQUARES[index].classList.contains(currentPlayer.getSign());
+      });
+    });
+  }
   const startGame = () => {
-  
-    console.log("playerOne.getSign(): ", playerOne.getSign())
-    console.log("playerTwo.getSign(): ", playerTwo.getSign())
-    
-    console.log(currentPlayer)
-    console.log("-------------------------------")
-
-    console.log("playerOneee: " + playerOne.getSign());
-
+    //adds an event listen to each square,
+    //the current player's sign is pushed into the array when they click on an EMPTY square
     let squareArray = Array.from(SQUARES);
     squareArray.forEach((square) => {
       square.addEventListener("click", (e) => {
-        console.log(e.target.id),
-          pushToArray(currentPlayer,playerOne, playerTwo),
-          displayController.fillInSquare(e.target.id);
+        pushToArray(currentPlayer, playerOne, playerTwo, e.target.id),
+        displayController.fillInSquare(e.target.id);
+        if (checkWin(playerOne)) {
+          message.innerText = playerOne.getSign() + " is a Winner!";
+        } else if (checkWin(playerTwo)) {
+          message.innerText = playerTwo.getSign() + " is a Winner!";
+        }
       });
     });
-    
   };
   const changeTurn = () => {
-    currentPlayer = currentPlayer == playerOne? playerTwo: playerOne;
-
-}
-  //   console.log("hello " + Gameboard.choiceArray);
-  return { currentPlayer, startGame, pushToArray, choiceArray };
+    currentPlayer = currentPlayer == playerOne ? playerTwo : playerOne;
+  };
+  return { currentPlayer, startGame, changeTurn, pushToArray, choiceArray };
 })();
 
 const displayController = (() => {
+//fillInSquare is passed the index of the square we want to mark
   const fillInSquare = function (index) {
     let squareIndex = index;
-    console.log("squareIndex: " + squareIndex);
     for (let i = 0; i < Gameboard.choiceArray.length; i++) {
       if (squareIndex) {
         let squareToBeFilled = document.getElementById(squareIndex);
-        console.log("squareToBeFilled: " + squareToBeFilled);
-        squareToBeFilled.textContent = Gameboard.choiceArray.pop();
+        squareToBeFilled.textContent = Gameboard.choiceArray[index];
+        squareToBeFilled.classList = Gameboard.choiceArray[index];
       }
     }
-    console.log("GameboardArray: " + Gameboard.choiceArray);
   };
+
   return { fillInSquare };
 })();
 
-// const gameController = (() => {
-//   displayController.fillInSquare();
-// })();
 Gameboard.startGame();
