@@ -8,7 +8,7 @@ const winCombos = [
   [2, 5, 8],
   [0, 4, 8],
 ];
-let message = document.getElementById("winnerMessage");
+let message = document.querySelector('[data-winnerMessage]');
 const Player = (sign) => {
   let _sign = sign;
   const getSign = () => _sign;
@@ -55,14 +55,21 @@ const Gameboard = (() => {
       square.addEventListener("click", (e) => {
         pushToArray(currentPlayer, playerOne, playerTwo, e.target.id),
         displayController.fillInSquare(e.target.id);
-        if (checkWin(playerOne)) {
-          message.innerText = playerOne.getSign() + " is a Winner!";
-        } else if (checkWin(playerTwo)) {
-          message.innerText = playerTwo.getSign() + " is a Winner!";
-        }
+        if (checkWin(playerOne) || checkWin(playerTwo)) {
+            if(currentPlayer == playerOne){
+                message.textContent = playerTwo.getSign() + " is a Winner! Thats on god ! ";
+            } 
+            if(currentPlayer == playerTwo){
+                message.textContent = playerOne.getSign() + " is a Winner! Thats on god! ";
+            }
+         displayController.on();
+        } 
       });
     });
   };
+  function endGame(){
+
+  }
   const changeTurn = () => {
     currentPlayer = currentPlayer == playerOne ? playerTwo : playerOne;
   };
@@ -81,8 +88,15 @@ const displayController = (() => {
       }
     }
   };
-
-  return { fillInSquare };
+  function on() {
+    document.getElementById("overlay").style.display = "block";
+  }
+  
+  function off() {
+    document.getElementById("overlay").style.display = "none";
+  }
+ 
+  return { on, off,fillInSquare };
 })();
 
 Gameboard.startGame();
