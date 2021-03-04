@@ -10,92 +10,93 @@ body {
   margin: 0;
   /* background: #14213d; */
   background: #2a9d8f;
-
 }
 .container {
-   height: 100%;
-    margin: 1.875rem auto;
-    padding: 1.25rem;
-    border: solid;
-   
-  }
+  height: 100%;
+  margin: 1.875rem auto;
+  padding: 1.25rem;
+  border: solid;
+}
 .gameboard-grid {
-    /* border-radius: 3.125rem; */
+  /* border-radius: 3.125rem; */
   display: grid;
-  grid-template-columns: 6.25rem  6.25rem 6.25rem ; 
-  grid-template-rows:  6.25rem  6.25rem 6.25rem;
+  grid-template-columns: 6.25rem 6.25rem 6.25rem;
+  grid-template-rows: 6.25rem 6.25rem 6.25rem;
   margin: 0.625rem;
   align-content: center;
   justify-content: center;
   border-style: solid;
   border-color: white;
- 
-     /* border-radius: 0;  */
 
-  }
-  .gameboard-grid> button {
-    cursor: pointer;
-    height: 100%;
-    width: 100%;
-    padding: 0px;
-    /* border-radius: 10vh; */
-    /* border-radius: 50px;  */
-    outline: none;
-    /* margin: 0.063rem; */
-    /* background-color: rgba(229, 229, 229, 0.8); */
-    /* border: 0.188rem solid rgba(0, 0, 0, 0.8); */
-    border-style: solid;
-    border-color: white;
-    font-size: 1.875rem;
-    /* text-align: center; */
-  }
-.center-me{
-    height: 100%;
-    width: 100%;
-   
-    background-color: red;
-    display: flex;
-    align-items: center;
-    justify-content: center 
+  /* border-radius: 0;  */
+}
+.gameboard-grid > button {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  /* border-radius: 10vh; */
+  /* border-radius: 50px;  */
+  outline: none;
+  /* margin: 0.063rem; */
+  /* background-color: rgba(229, 229, 229, 0.8); */
+  /* border: 0.188rem solid rgba(0, 0, 0, 0.8); */
+  border-style: solid;
+  border-color: white;
+  font-size: 1.875rem;
+  /* text-align: center; */
+}
+.center-me {
+  height: 100%;
+  width: 100%;
+
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .square p {
-margin: 0;
+  margin: 0;
 }
 .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    max-height: 5vh;
-    padding-left: 0.625rem;
-    color: white;
-    text-align: center;
-    display: flex;
-    align-items: flex-start;
-  }
-  .footer a:visited {
-    color: white;
-  }
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  max-height: 5vh;
+  padding-left: 0.625rem;
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: flex-start;
+}
+.footer a:visited {
+  color: white;
+}
 
-  #overlay {
-    position: fixed; /* Sit on top of the page content */
-    display: none; /* Hidden by default */
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
-  }
-  #text{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 50px;
-    color: white;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-  }
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+#text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+#reset {
+    position: relative;
+    /* margin-top: auto; */
+  
+}
