@@ -111,9 +111,7 @@ var Gameboard = (() => {
     if (draw) {
       winningMessageTextElement.textContent = "Draw!";
     } else {
-      winningMessageTextElement.textContent = `${
-        currentPlayer == playerOne ? playerOne.getSign() : playerTwo.getSign()
-      }'s win!`;
+      winningMessageTextElement.textContent = `${ currentPlayer == playerOne ? playerOne.getSign() : playerTwo.getSign() }'s win!`;
     }
     displayController.on();
   }
