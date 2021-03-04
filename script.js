@@ -9,10 +9,7 @@ const winCombos = [
   [0, 4, 8],
 ];
 const SQUARES = document.querySelectorAll("[data-square]");
-const winningMessageTextElement = document.querySelector(
-    "[data-winnerMessage]"
-  );
-const squareElements = document.querySelectorAll("[data-square]");
+const winningMessageTextElement = document.querySelector("[data-winnerMessage]");
 const myResetButton = document.getElementById("resetButton");
 
 const Player = (sign) => {
@@ -63,7 +60,6 @@ var Gameboard = (() => {
   
   choiceArray = ["", "", "", "", "", "", "", "", ""];
   function init(restart){
-    console.log("restart: " + restart)
     if(restart == true) { 
       for(let i = 0 ; i < 9 ; i++){
       Gameboard.choiceArray.pop()
@@ -84,8 +80,6 @@ var Gameboard = (() => {
     winningMessageTextElement.textContent = null;
     displayController.off();
 
-      console.log("hello")
-     
   }
  
 
@@ -104,25 +98,25 @@ var Gameboard = (() => {
        
   }
 
-  //
+  
  
   const pushToArray = function (currentPlayer, playerOne, playerTwo, e) {
     var index = e;
-    console.log(index);
-    console.log("myCurrentPlayer::::::" + currentPlayer.getSign());
+    
+    
     if (currentPlayer === playerOne && choiceArray[index] != "X" && choiceArray[index] != "O" ) {
-      console.log("pushing here");
+     
       choiceArray[index] = playerOne.getSign();
       changeTurn(currentPlayer, playerOne, playerTwo);
-      console.log("circle? : " + currentPlayer.getSign());
+     
     } else if (currentPlayer === playerTwo && choiceArray[index] != "X" && choiceArray[index] != "O" ) {
-      console.log("pushing here2");
+     
       choiceArray[index] = playerTwo.getSign();
       changeTurn(currentPlayer, playerOne, playerTwo);
     }
   }; 
 
-  console.log("starting game");
+ 
   // choiceArray = setChoiceArray();
   //adds an event listen to each square,
   //the current player's sign is pushed into the array when they click on an EMPTY square
@@ -150,17 +144,14 @@ var Gameboard = (() => {
     });
   }
   function changeTurn(currentPlayer, playerOne, playerTwo) {
-    console.log("currentPlayer inside changeTurn " + currentPlayer.getSign());
-    console.log("Player1 inside changeTurn " + playerOne.getSign());
     Gameboard.currentPlayer = currentPlayer == playerOne ? playerTwo : playerOne;
-    console.log("currentPlayer inside changeTurn " + Gameboard.currentPlayer.getSign());
   }
   function isDraw(playerOne, playerTwo) {
     //This function checks if the game is a draw by iterating through every square on the gameboard and checking to see
     //if the square element contains the class "x" or "o"
     //if every square is marked then it returns True
-    //the squareElement does not have an 'every' method, but we can get around this by destructuring the square elements into an array
-    return [...squareElements].every((square) => {
+    //the SQUARES elements do not have an 'every' method, but we can get around this by destructuring the square elements into an array
+    return [...SQUARES].every((square) => {
       return (
         square.classList.contains(playerOne.getSign()) ||
         square.classList.contains(playerTwo.getSign())
@@ -170,7 +161,7 @@ var Gameboard = (() => {
   
 
   myResetButton.addEventListener("click", () => {
-    console.log("click"), init(true);
+   init(true);
   });
   
   
