@@ -5,17 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <title>Tic-Tac-Toe!</title>
 </head>
 <body>
+    <header>
+        <h1 class="title">Tic-Tac-Toe</h1>
+    </header>
     <div id="overlay">
-        <div id="text" data-winnerMessage>
-        </div>
-        <button id = "resetButton">RESET</button>
+        <div id="text" data-winnerMessage></div>
+        <button class = "reset" id = "resetButton">RESET</button>
     </div>
-    <div class = "container">
-        
         <div class = "gameboard-grid">
+            <div class = "squares" >
+                
+          
             <!-- <p class = "center-me" id = 1></p> -->
            <button class = 'square' id = 0 data-square > </button>
            <button class = 'square' id = 1 data-square > </button>
@@ -25,8 +31,7 @@
            <button class = 'square' id = 5 data-square >  </button>
            <button class = 'square' id = 6 data-square>  </button>
            <button class = 'square' id = 7 data-square>  </button>
-           <button class = 'square' id = 8 data-square>  </button>
-           
+           <button class = 'square' id = 8 data-square>  </button> 
         </div>
     </div>
     <div class="footer">

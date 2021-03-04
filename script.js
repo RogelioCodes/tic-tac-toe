@@ -67,7 +67,7 @@ var Gameboard = (() => {
     squareArray.forEach((square) => {
       square.classList.remove(playerOne.getSign())
       square.classList.remove(playerTwo.getSign())
-      square.textContent = "";
+      square.innerHTML = "";
       square.removeEventListener('click', handleClick)
       square.addEventListener('click', handleClick, { once: true })
     })
@@ -108,6 +108,7 @@ var Gameboard = (() => {
   }
  
   function checkWin(currentPlayer) {
+    //testing checkWin!
     return winCombos.some((combination) => {
       return combination.every((index) => {
         return SQUARES[index].classList.contains(currentPlayer.getSign());
@@ -122,6 +123,7 @@ var Gameboard = (() => {
     //if the square element contains the class "x" or "o"
     //if every square is marked then it returns True
     //the SQUARES elements do not have an 'every' method, but we can get around this by destructuring the square elements into an array
+    console.log("testing draw")
     return [...SQUARES].every((square) => {
       return (
         square.classList.contains(playerOne.getSign()) ||
