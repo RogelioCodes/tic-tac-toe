@@ -74,19 +74,14 @@ var Gameboard = (() => {
       square.classList.remove(playerTwo.getSign())
       square.textContent = "";
       square.removeEventListener('click', handleClick)
-      square.addEventListener('click', handleClick, { once: true } )
+      square.addEventListener('click', handleClick, { once: true })
     })
     
     winningMessageTextElement.textContent = null;
     displayController.off();
-
   }
- 
 
   function handleClick(e) {
-   
-    const square = e.target;
-    
     currentPlayer.getSign() == 'O' ? currentPlayer = playerOne : currentPlayer = playerTwo
     pushToArray(currentPlayer, playerOne, playerTwo,e.target.id);
     displayController.fillInSquare(e.target.id, currentPlayer);
@@ -98,30 +93,20 @@ var Gameboard = (() => {
        
   }
 
-  
- 
   const pushToArray = function (currentPlayer, playerOne, playerTwo, e) {
     var index = e;
-    
-    
     if (currentPlayer === playerOne && choiceArray[index] != "X" && choiceArray[index] != "O" ) {
-     
       choiceArray[index] = playerOne.getSign();
       changeTurn(currentPlayer, playerOne, playerTwo);
-     
     } else if (currentPlayer === playerTwo && choiceArray[index] != "X" && choiceArray[index] != "O" ) {
-     
       choiceArray[index] = playerTwo.getSign();
       changeTurn(currentPlayer, playerOne, playerTwo);
     }
   }; 
 
- 
   // choiceArray = setChoiceArray();
   //adds an event listen to each square,
-  //the current player's sign is pushed into the array when they click on an EMPTY square
-
-  
+  //the current player's sign is pushed into the array when they click on an EMPTY square  
   function endGame(draw) {
     if (draw) {
       winningMessageTextElement.textContent = "Draw!";
@@ -133,9 +118,6 @@ var Gameboard = (() => {
     displayController.on();
   }
  
-
- 
-  
   function checkWin(currentPlayer) {
     return winCombos.some((combination) => {
       return combination.every((index) => {
@@ -158,15 +140,12 @@ var Gameboard = (() => {
       );
     });
   }
-  
 
   myResetButton.addEventListener("click", () => {
    init(true);
   });
   
-  
   return { choiceArray, init, currentPlayer};
 })();
-
 
 Gameboard.init();
