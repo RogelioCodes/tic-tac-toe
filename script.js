@@ -22,14 +22,10 @@ const Player = (sign) => {
   return { getSign, setSign };
 };
 const displayController = (() => {
-    
-  
-
   //fillInSquare is passed the index of the square we want to mark
   //this function iterates through the list of user inputs(choiceArray) to find the index of the square that needs to be marked, if the index
-  const fillInSquare = function (squareIndex, currentPlayer) {
+  const fillInSquare = function (squareIndex) {
     const squareToBeFilled = document.getElementById(squareIndex);
-
     for (let i = 0; i < Gameboard.choiceArray.length; i++) {
       squareToBeFilled.textContent = Gameboard.choiceArray[squareIndex];
       squareToBeFilled.classList = Gameboard.currentPlayer.getSign();
@@ -46,17 +42,15 @@ const displayController = (() => {
 
   return {  on, off, fillInSquare };
 })();
+
 //The gameboard object model handles most of the logic for the game
 //It calls the 'Player' factory function to create two players, which are represented by X and O
-//
-
 var Gameboard = (() => {
   const playerOne = Player();
   const playerTwo = Player();
   playerOne.setSign("X");
   playerTwo.setSign("O");
   var currentPlayer = playerOne;
-
   
   choiceArray = ["", "", "", "", "", "", "", "", ""];
   function init(restart){
@@ -84,13 +78,12 @@ var Gameboard = (() => {
   function handleClick(e) {
     currentPlayer.getSign() == 'O' ? currentPlayer = playerOne : currentPlayer = playerTwo
     pushToArray(currentPlayer, playerOne, playerTwo,e.target.id);
-    displayController.fillInSquare(e.target.id, currentPlayer);
+    displayController.fillInSquare(e.target.id);
     if (checkWin(playerOne) || checkWin(playerTwo) ) {
           endGame(false, currentPlayer, playerOne, playerTwo);
         } else if (isDraw(playerOne, playerTwo)) {
           endGame(true, currentPlayer,playerOne, playerTwo);
         }
-       
   }
 
   const pushToArray = function (currentPlayer, playerOne, playerTwo, e) {
