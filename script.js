@@ -12,6 +12,7 @@ const SQUARES = document.querySelectorAll("[data-square]");
 const winningMessageTextElement = document.querySelector("[data-winnerMessage]");
 const myResetButton = document.getElementById("resetButton");
 
+//The player factory function is used to generate new players
 const Player = (sign) => {
   let _sign = sign;
   const getSign = () => _sign;
@@ -21,6 +22,8 @@ const Player = (sign) => {
 
   return { getSign, setSign };
 };
+//The display Controller object model is used to control the display of the game
+//It handles the marking of spots and controls the overlay that is displayed when the game is over
 const displayController = (() => {
   //fillInSquare is passed the index of the square we want to mark
   //this function iterates through the list of user inputs(choiceArray) to find the index of the square that needs to be marked, if the index
@@ -31,12 +34,12 @@ const displayController = (() => {
       squareToBeFilled.classList = Gameboard.currentPlayer.getSign();
     }
   };
-  function on() {
-    document.getElementById("overlay").style.display = "flex";
+  function on() { //turns on the overlay 
+    document.getElementById("overlay").style.display = "flex"; 
     document.getElementById("overlay").style.flexDirection = "column";
   }
 
-  function off() {
+  function off() {//turns off the overlay 
     document.getElementById("overlay").style.display = "none";
   }
 
@@ -56,8 +59,8 @@ var Gameboard = (() => {
   function init(restart){
     if(restart == true) { 
       for(let i = 0 ; i < 9 ; i++){
-      Gameboard.choiceArray.pop()
-    }
+        Gameboard.choiceArray.pop()
+      }
       restart = false ;  
     }
     currentPlayer = playerOne;
@@ -71,11 +74,13 @@ var Gameboard = (() => {
       square.removeEventListener('click', handleClick)
       square.addEventListener('click', handleClick, { once: true })
     })
-    
     winningMessageTextElement.textContent = null;
     displayController.off();
   }
-
+  
+  //This function is called every time the user clicks on a square
+  //It will push a mark into the 'choiceArray' and then fill in that square
+  //Every time this function is called we check if there is a winner, if there is no winner yet we pass FALSE to endGame(), preventing the game from ending
   function handleClick(e) {
     currentPlayer.getSign() == 'O' ? currentPlayer = playerOne : currentPlayer = playerTwo
     pushToArray(currentPlayer, playerOne, playerTwo,e.target.id); //the current player's sign is pushed into the array when they click on an EMPTY square  
@@ -86,7 +91,8 @@ var Gameboard = (() => {
           endGame(true, currentPlayer,playerOne, playerTwo);
         }
   }
-
+  
+  //This pushes into our array of choices and then changes the turn, before doing that it makes sure that the spot being marked is empty
   const pushToArray = function (currentPlayer, playerOne, playerTwo, e) {
     var index = e;
     if (currentPlayer === playerOne && choiceArray[index] != "X" && choiceArray[index] != "O" ) {
@@ -98,6 +104,9 @@ var Gameboard = (() => {
     }
   }; 
 
+  //This function is called every time the user clicks on a square
+  //If it is passed true then it write 'Draw!' to the DOM, 
+  //if it is passed false then we display a message saying that the current player has won 
   function endGame(draw) {
     if (draw) {
       winningMessageTextElement.textContent = "Draw!";
@@ -106,15 +115,15 @@ var Gameboard = (() => {
     }
     displayController.on();
   }
- 
+  //This function iterates through every winning combination to see if the current player has marked one of the winning combinations
   function checkWin(currentPlayer) {
-    //testing checkWin!
     return winCombos.some((combination) => {
       return combination.every((index) => {
         return SQUARES[index].classList.contains(currentPlayer.getSign());
       });
     });
   }
+
   function changeTurn(currentPlayer, playerOne, playerTwo) {
     Gameboard.currentPlayer = currentPlayer == playerOne ? playerTwo : playerOne;
   }
@@ -131,7 +140,6 @@ var Gameboard = (() => {
       );
     });
   }
-
   myResetButton.addEventListener("click", () => {
    init(true);
   });
