@@ -62,6 +62,7 @@ var Gameboard = (() => {
     }
     currentPlayer = playerOne;
    
+    //adds an event listen to each square,
     var squareArray = Array.from(SQUARES);
     squareArray.forEach((square) => {
       square.classList.remove(playerOne.getSign())
@@ -77,7 +78,7 @@ var Gameboard = (() => {
 
   function handleClick(e) {
     currentPlayer.getSign() == 'O' ? currentPlayer = playerOne : currentPlayer = playerTwo
-    pushToArray(currentPlayer, playerOne, playerTwo,e.target.id);
+    pushToArray(currentPlayer, playerOne, playerTwo,e.target.id); //the current player's sign is pushed into the array when they click on an EMPTY square  
     displayController.fillInSquare(e.target.id);
     if (checkWin(playerOne) || checkWin(playerTwo) ) {
           endGame(false, currentPlayer, playerOne, playerTwo);
@@ -97,9 +98,6 @@ var Gameboard = (() => {
     }
   }; 
 
-  // choiceArray = setChoiceArray();
-  //adds an event listen to each square,
-  //the current player's sign is pushed into the array when they click on an EMPTY square  
   function endGame(draw) {
     if (draw) {
       winningMessageTextElement.textContent = "Draw!";
